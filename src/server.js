@@ -1,58 +1,69 @@
 const express = require('express');
-const axios = require('axios'); // or any library you use to fetch market data
+const axios = require('axios'); // Axios to fetch market data
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Endpoint to fetch market data
 app.get('/api/getMarketData', async (req, res) => {
-  const { interval } = req.query;
+  const { interval } = req.query; // Get the interval from the request query
   try {
     let data;
 
-    // Implement logic based on the interval requested
+    // Switch statement to handle different intervals
     switch (interval) {
       case '1m':
-        data = await fetchMarketData('1 minute'); // Fetch data for the last 1 minute
-        break;
       case '5m':
-        data = await fetchMarketData('5 minutes'); // Fetch data for the last 5 minutes
-        break;
       case '1h':
-        data = await fetchMarketData('1 hour'); // Fetch data for the last 1 hour
-        break;
       case '24h':
-        data = await fetchMarketData('1 hour'); // Fetch hourly data for the last 24 hours
-        break;
       case '5d':
-        data = await fetchMarketData('1 day'); // Fetch daily data for the last 5 days
-        break;
       case '1M':
-        data = await fetchMarketData('1 week'); // Fetch weekly data for the last month
-        break;
       case '3M':
-        data = await fetchMarketData('1 month'); // Fetch monthly data for the last 3 months
+        data = await fetchMarketData(interval); // Call the function to fetch market data
         break;
       default:
-        return res.status(400).send('Invalid interval');
+        return res.status(400).json({ error: 'Invalid interval' });
     }
 
+    // Send the fetched data as a response
     res.status(200).json(data);
   } catch (error) {
     console.error('Error fetching market data:', error);
-    res.status(500).send('Internal Server Error');
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
-// Sample fetchMarketData function, replace with your actual data retrieval logic
-const fetchMarketData = async (timeFrame) => {
-  // Replace with actual data fetching logic from a database or an external API
-  // Simulated response
-  const simulatedData = [
-    { time: '2024-01-01', open: 100, high: 110, low: 90, close: 105, volume: 2000 },
-    // More data...
-  ];
-  return simulatedData;
+// Function to fetch market data from Binance API
+const fetchMarketData = async (interval) => {
+  try {
+    const BASE_URL = 'https://api.binance.com/api/v3/klines';
+    const symbol = 'BTCUSDT'; // The trading pair
+
+    const response = await axios.get(BASE_URL, {
+      params: {
+        symbol,
+        interval, // Use the interval provided by the user
+        limit: 500, // Number of data points (you can adjust this limit)
+      },
+    });
+
+    // Parse the response and format the market data
+    const marketData = response.data.map(item => ({
+      time: item[0] / 1000, // Convert timestamp to seconds
+      open: parseFloat(item[1]),
+      high: parseFloat(item[2]),
+      low: parseFloat(item[3]),
+      close: parseFloat(item[4]),
+      volume: parseFloat(item[5]),
+    }));
+
+    return marketData;
+  } catch (error) {
+    console.error('Error fetching data from Binance API:', error);
+    throw new Error('Failed to fetch market data');
+  }
 };
 
+// Start the Express server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

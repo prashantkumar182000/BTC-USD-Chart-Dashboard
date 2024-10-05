@@ -12,7 +12,7 @@ async def get_market_data(interval: str):
         "1m": "1m",
         "5m": "5m",
         "1h": "1h",
-        "24h": "15m",  # Use 15m for the last 24 hours
+        "24h": "1m",  # Use 1m for the last 24 hours
         "5d": "1d",    # Daily data for the last 5 days
         "1M": "1M",    # Monthly data
         "3M": "3M",    # Quarterly data
