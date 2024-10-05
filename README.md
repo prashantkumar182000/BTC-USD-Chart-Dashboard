@@ -68,11 +68,6 @@ https://github.com/user-attachments/assets/f3c0ae20-fa14-4822-841f-fbb9962bd6d2
 
 6. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-### Video Demonstration
-A **screen recording** of the project running locally has been provided to give a walkthrough of the codebase, functionality, and the chart's real-time interactions.
-
-https://github.com/user-attachments/assets/f3c0ae20-fa14-4822-841f-fbb9962bd6d2
-
 
 ### API Usage
 
