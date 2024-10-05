@@ -65,7 +65,8 @@ This project is a responsive charting module built using **Next.js**. It display
 ### Video Demonstration
 A **screen recording** of the project running locally has been provided to give a walkthrough of the codebase, functionality, and the chart's real-time interactions.
 
-https://github.com/prashantkumar182000/BTC-USD-Chart-Dashboard/issues/1#issue-2568224655
+https://github.com/user-attachments/assets/f3c0ae20-fa14-4822-841f-fbb9962bd6d2
+
 
 ### API Usage
 
