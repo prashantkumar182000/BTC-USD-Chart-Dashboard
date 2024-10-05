@@ -1,9 +1,10 @@
-// src/components/TopShare.js
-
 import React from 'react';
-import { Box, Typography, Paper, Grid, Button } from '@mui/material';
+import { Box, Typography, Paper, Grid, Button, useMediaQuery } from '@mui/material';
 
 const TopShare = () => {
+  const isMediumScreen = useMediaQuery('(max-width: 1672px)');
+  const isSmallScreen = useMediaQuery('(max-width: 1584px)');
+
   // Sample data
   const performers = [
     { name: 'Tata Power', price: 150, change: 5.2 },
@@ -15,7 +16,7 @@ const TopShare = () => {
   return (
     <Box sx={{ marginTop: '20px' }}>
       <Paper elevation={3} sx={{ padding: '10px', backgroundColor: '#fff', borderRadius: '10px' }}>
-        <Typography variant="h6" gutterBottom sx={{marginBottom: '20px'}}>
+        <Typography variant="h6" gutterBottom sx={{ marginBottom: '20px' }}>
           Top Performers [Shares]
         </Typography>
         <Grid container spacing={2}>
@@ -28,11 +29,12 @@ const TopShare = () => {
                   borderRadius: '5px',
                   backgroundColor: performer.change >= 0 ? '#e8f5e9' : '#e8f5e9',
                   display: 'flex',
-                  justifyContent: 'space-between', // Space between content and buttons
-                  alignItems: 'center', // Center align items vertically
+                  justifyContent: isSmallScreen ? 'center' : 'space-between',
+                  alignItems: 'center',
+                  flexDirection: isSmallScreen ? 'column' : 'row',
                 }}
               >
-                <Box>
+                <Box sx={{ textAlign: isSmallScreen ? 'center' : 'left' }}>
                   <Typography variant="body1" sx={{ fontWeight: 'bold', color: '#424242' }}>
                     {performer.name}
                   </Typography>
@@ -43,16 +45,30 @@ const TopShare = () => {
                     Up: {performer.change}%
                   </Typography>
                 </Box>
-                <Box>
+                <Box sx={{
+                  display: 'flex',
+                  justifyContent: isSmallScreen ? 'center' : 'flex-end',
+                  marginTop: isSmallScreen ? '10px' : '0',
+                  width: isMediumScreen ? 'auto' : 'unset',
+                }}>
                   <Button
                     variant="contained"
-                    sx={{ backgroundColor: '#c8e6c9', color: '#000', marginRight: '5px' }} // Light green color
+                    sx={{
+                      backgroundColor: '#c8e6c9',
+                      color: '#000',
+                      marginRight: '5px',
+                      width: isMediumScreen ? '40px' : '50px', // Adjust width for medium screens
+                    }}
                   >
                     B
                   </Button>
                   <Button
                     variant="contained"
-                    sx={{ backgroundColor: '#ffcdd2', color: '#000' }} // Light red color
+                    sx={{
+                      backgroundColor: '#ffcdd2',
+                      color: '#000',
+                      width: isMediumScreen ? '40px' : '50px', // Adjust width for medium screens
+                    }}
                   >
                     S
                   </Button>
