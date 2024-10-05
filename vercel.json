@@ -1,9 +1,20 @@
 {
-    "regions": ["iad1"],
-    "functions": {
-      "api/getMarketData": {
-        "regions": ["iad1"]  
+    "version": 2,
+    "builds": [
+      {
+        "src": "pages/api/*.js",
+        "use": "@vercel/node"
+      },
+      {
+        "src": "next.config.js",
+        "use": "@vercel/next"
       }
-    }
+    ],
+    "rewrites": [
+      {
+        "source": "/api/(.*)",
+        "destination": "/api/$1"
+      }
+    ]
   }
   
