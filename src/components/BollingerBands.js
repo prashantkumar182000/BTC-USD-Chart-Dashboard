@@ -85,7 +85,7 @@ export default function BollingerBands({ interval }) {
       lowerBandSeriesRef.current.setData(lower);
     } catch (error) {
       console.error('Error fetching Bollinger Bands data:', error);
-      alert('Failed to fetch Bollinger Bands data. Please try again later.');
+      alert('Failed to fetch Bollinger Bands data. Please try again later. Note: Binance is restricting access from your current deployment region due to legal or regulatory reasons');
     }
   };
 

@@ -65,7 +65,7 @@ export default function CandlestickChart({ interval }) {
       candlestickSeriesRef.current.setData(candlestickData);
     } catch (error) {
       console.error('Error fetching candlestick data:', error);
-      alert('Failed to fetch candlestick data. Please try again later.');
+      alert('Failed to fetch candlestick data. Please try again later. Note: Binance is restricting access from your current deployment region due to legal or regulatory reasons');
     }
   };
 

@@ -58,7 +58,7 @@ export default function VolumeChart({ interval }) {
       volumeSeriesRef.current.setData(volumes);
     } catch (error) {
       console.error('Error fetching volume data:', error);
-      alert('Failed to fetch volume data. Please try again later.');
+      alert('Failed to fetch volume data. Please try again later. Note: Binance is restricting access from your current deployment region due to legal or regulatory reasons');
     }
   };
 
